@@ -1,0 +1,27 @@
+services:
+  t2i:
+    build: .
+    image: t2i-service:local
+    env_file:
+      - path: .env
+        required: false  # optional; see .env.example
+    ports:
+      - "8000:8000"
+    volumes:
+      - t2i-outputs:/data/outputs
+      - t2i-hf-cache:/data/hf
+      # Pre-provisioned weights (folder name = model name, e.g. ./weights/flux2-klein-4b/):
+      # - ./weights:/data/models:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    init: true
+    restart: unless-stopped
+
+volumes:
+  t2i-outputs:
+  t2i-hf-cache:

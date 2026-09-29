@@ -1,0 +1,14 @@
+# Web layer (versions verified with the test-suite)
+fastapi==0.141.1
+uvicorn==0.54.0
+pydantic-settings==2.15.0
+pillow==12.3.0
+
+# Inference. torch is installed separately in the Dockerfile (CUDA build).
+# diffusers 0.40.0 ships Flux2KleinPipeline and Krea2Pipeline (checked in the wheel source).
+# NOT yet exercised on a GPU: after the first successful run on the VM, freeze exact
+# versions of everything below with `pip freeze` and pin them here.
+diffusers==0.40.0
+transformers>=4.57
+accelerate>=1.0
+safetensors>=0.8.0
